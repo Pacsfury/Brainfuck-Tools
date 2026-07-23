@@ -30,8 +30,7 @@ int main(int argc, char* argv[]) {
         execute(file_content);
 
         file.close();
-    }
-    if (args.hasArg("to")) {
+    } else if (args.hasArg("to")) {
         auto filename_opt = args.getArg("to");
         if (!filename_opt.has_value()) {
             std::cerr << "Error: Missing input file.\n";
