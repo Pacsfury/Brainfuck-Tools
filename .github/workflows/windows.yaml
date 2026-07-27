@@ -1,4 +1,4 @@
-name: CI Windows
+name: C++ (Windows Direct)
 
 on:
   push:
@@ -7,17 +7,17 @@ on:
     branches: [ "main" ]
 
 jobs:
+
   build:
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Rust
-      uses: dtolnay/rust-toolchain@stable
+    - name: Configure Developer Command Prompt
+      uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Compile Code
-      run: rustc src/main.rs -O -o program
+    - name: Build
+      run: cl.exe /std:c++20 /EHsc src/*.cpp /Fe:yarc.exe
 
-    - name: Test Code 
-      run: ./program
+    - name: Test
+      run: .\yarc.exe --test
