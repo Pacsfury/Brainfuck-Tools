@@ -1,4 +1,4 @@
-name: CI Ubuntu
+name: C++ (Ubuntu Direct)
 
 on:
   push:
@@ -7,17 +7,14 @@ on:
     branches: [ "main" ]
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Rust
-      uses: dtolnay/rust-toolchain@stable
+    - name: Build
+      run: g++ -std=c++20 src/*.cpp -o yarc
 
-    - name: Compile Code
-      run: rustc src/main.rs -O -o program
-
-    - name: Test Code
-      run: ./program
+    - name: Test
+      run: ./yarc --test
