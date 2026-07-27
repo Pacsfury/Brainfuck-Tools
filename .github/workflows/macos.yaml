@@ -1,4 +1,4 @@
-name: C++ (macOS Direct)
+name: CI macOS
 
 on:
   push:
@@ -7,14 +7,17 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
     runs-on: macos-latest
+
     steps:
     - uses: actions/checkout@v4
 
-    - name: Build
-      run: clang++ -std=c++20 src/*.cpp -o yarc
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
 
-    - name: Test
-      run: ./yarc --test
+    - name: Compile Code
+      run: rustc src/main.rs -O -o program
+
+    - name: Test Code 
+      run: ./program
