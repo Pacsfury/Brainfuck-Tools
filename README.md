@@ -47,6 +47,9 @@ while memory[ptr] != 0:
     memory[ptr] = (memory[ptr] - 1) & 255
 ```
 
+It also recognizes some patterns:
+* **[-]**: Puts the actual cell to 0
+
 ---
 
 ## Contributing

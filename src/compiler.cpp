@@ -55,6 +55,9 @@ void execute(std::string code) {
                 }
                 break;
             case '[':
+                if (code[++i] == '-' && code[++i] == ']') {
+                    memory[ptr] = 0;
+                }
                 break;
             case ']':
                 if (memory[ptr] != 0) {

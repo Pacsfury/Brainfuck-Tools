@@ -69,7 +69,11 @@ void transpile(std::string language, std::string code) {
                     outputFile << "    }\n";
                     break;
                 case '[':
-                    outputFile << "    while (memory[ptr]) {\n";
+                    if (code[++i] == '-' && code[++i] == ']') {
+                        outputFile << "memory[ptr] = 0";
+                    } else {
+                        outputFile << "    while (memory[ptr]) {\n";
+                    }
                     break;
                 case ']':
                     outputFile << "    }\n";
@@ -140,8 +144,12 @@ void transpile(std::string language, std::string code) {
                     break;
                 case '[':
                     write_indent(indent_level);
-                    outputFile << "while memory[ptr] != 0:\n";
-                    indent_level++;
+                    if (code[++i] == '-' && code[++i] == ']') {
+                        outputFile << "memory[ptr] = 0";
+                    } else {
+                        outputFile << "while memory[ptr] != 0:\n";
+                        indent_level++;
+                    }
                     break;
                 case ']':
                     indent_level--;
