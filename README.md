@@ -52,6 +52,54 @@ It also recognizes some patterns:
 
 ---
 
+## Future recognizable patterns
+
+* **`[->+++++<]`** ->
+```python
+memory[ptr + 1] += memory[ptr] * 5
+memory[ptr] = 0
+```
+
+* **`[->+>+<<]>>[-<<+>>]<`** ->
+```python
+memory[ptr + 1] = memory[ptr]
+```
+
+* **`[->+<]`** ->
+```python
+memory[ptr + 1] += memory[ptr]
+memory[ptr] = 0
+```
+
+* **`>[-]<`** ->
+```python
+memory[ptr + 1] = 0
+```
+
+* **`[>]`** ->
+```python
+while memory[ptr] != 0:
+    ptr += 1
+```
+
+* **`[<]`** ->
+```python
+while memory[ptr] != 0:
+    ptr -= 1
+```
+
+* **`>+++++++<`** ->
+```python
+memory[ptr + 1] = (memory[ptr + 1] + 7) & 255
+```
+
+* **`>-[<+>-]<`** ->
+```python
+memory[ptr] += memory[ptr + 1]
+memory[ptr + 1] = 0
+```
+
+
 ## Contributing
 
 Contributions make the open-source community an amazing place! If you want to add a new transpilation target, a memory visualizer, or a benchmark tool, your help is welcome.
