@@ -8,43 +8,29 @@ uint8_t memory[30000] = {0};
 int hlp = 0;
 
 void execute(std::string code) {
-    for (size_t i = 0;i<code.size();i++) {
+    size_t length = code.size();
+    
+    for (size_t i = 0; i < length; i++) {
         hlp = 0;
         switch(code[i]) {
             case '>':
-                while (i < code.size() && code[i] == '>') {
-                    hlp++;
-                    i++;
-                }
-                i--;
-                ptr += hlp;
+                while (i < length && code[i] == '>') { hlp++; i++; }
+                i--; ptr = (ptr + hlp) % 30000;
                 break;
             case '<':
-                while (i < code.size() && code[i] == '<') {
-                    hlp++;
-                    i++;
-                }
-                i--;
-                ptr -= hlp;
+                while (i < length && code[i] == '<') { hlp++; i++; }
+                i--; ptr = (ptr - hlp + 30000) % 30000;
                 break;
             case '+':
-                while (i < code.size() && code[i] == '+') {
-                    hlp++;
-                    i++;
-                }
-                i--;
-                memory[ptr] += hlp;
+                while (i < length && code[i] == '+') { hlp++; i++; }
+                i--; memory[ptr] += hlp;
                 break;
             case '-':
-                while (i < code.size() && code[i] == '-') {
-                    hlp++;
-                    i++;
-                }
-                i--;
-                memory[ptr] -= hlp;
+                while (i < length && code[i] == '-') { hlp++; i++; }
+                i--; memory[ptr] -= hlp;
                 break;
             case '.':
-                std::cout<<static_cast<char>(memory[ptr]);
+                std::cout << static_cast<char>(memory[ptr]);
                 break;
             case ',':
                 char input;
@@ -55,25 +41,30 @@ void execute(std::string code) {
                 }
                 break;
             case '[':
-                if (code[++i] == '-' && code[++i] == ']') {
+                if (i + 2 < length && (code[i+1] == '-' || code[i+1] == '+') && code[i+2] == ']') {
                     memory[ptr] = 0;
+                    i += 2;
+                    break;
+                }
+                
+                if (memory[ptr] == 0) {
+                    int counter = 1;
+                    while (counter > 0 && ++i < length) {
+                        if (code[i] == '[') counter++;
+                        else if (code[i] == ']') counter--;
+                    }
                 }
                 break;
             case ']':
                 if (memory[ptr] != 0) {
-                    int counter = 1; 
-                    while (counter > 0) {
-                        i--; 
-                        if (code[i] == ']') {
-                            counter++; 
-                        } 
-                        else if (code[i] == '[') {
-                            counter--; 
-                        }
+                    int counter = 1;
+                    while (counter > 0 && i > 0) {
+                        i--;
+                        if (code[i] == ']') counter++;
+                        else if (code[i] == '[') counter--;
                     }
                 }
                 break;
-
             default:
                 break;
         }
