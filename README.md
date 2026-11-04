@@ -1,6 +1,8 @@
 # Brainf**k Tools
 ---
 
+> I'm planning to add support for **Forth**, **Joy**, and other **real but simple** programming language, changing the repo to **PacsFury's Compiler Collection** (PFCC)
+
 ## What does BF Tools provide?
 
 BF Tools provides basic tools needed for BF coding and debugging. Right now, it contains:
