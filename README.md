@@ -1,7 +1,7 @@
 # Brainf**k Tools
 ---
 
-> I'm planning to add support for **Forth**, **Joy**, **Lua 5.1**, **TCL** and other **real but simple** programming language, changing the repo to **PacsFury's Compiler Collection** (PFCC)
+> I'm planning to add support for **Forth**, **Joy**, **Lua 5.1**, **TCL** and other **real but simple** programming languages, changing the repo to **PacsFury's Compiler Collection** (PFCC)
 
 ## What does BF Tools provide?
 
